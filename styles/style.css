@@ -7,8 +7,10 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-
   position: static;
+  flex-direction: column-reverse;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 body {
   background-color: black;
@@ -19,7 +21,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column-reverse;
 }
 body button {
   font-size: 30px;
