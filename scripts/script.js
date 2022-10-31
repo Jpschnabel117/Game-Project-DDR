@@ -10,6 +10,15 @@ landingRowImg.src = "/imgs/DDR/landingArrowCheck.png";
 let greenArrowsImg = new Image();
 greenArrowsImg.src = "/imgs/DDR/DDRgreenArrows.png";
 
+let missImg = new Image();
+missImg.src = "/imgs/DDR/missHit.png";
+
+let okHitImg = new Image();
+okHitImg.src = "/imgs/DDR/greatHits.png";
+
+let pHitImg = new Image();
+pHitImg.src = "/imgs/DDR/perfect.png";
+
 function drawLandingRow(/*tempo*/) {
   ctx.drawImage(landingRowImg, 0, 0, 255, 60, 0, 0, 500, 120);
 }
@@ -19,9 +28,9 @@ function drawUI() {} // implement
 //utility functions
 function updateStats() {
   document.querySelector("#score").textContent = `SCORE: ${score}`;
-  document.querySelector("#okHits").textContent = `GREAT HITS: ${score}`;
-  document.querySelector("#pHits").textContent = `PERFECT HITS: ${score}`;
-  document.querySelector("#misses").textContent = `MISSES: ${score}`;
+  document.querySelector("#okHits").textContent = `GREAT HITS: ${OKHITS}`;
+  document.querySelector("#pHits").textContent = `PERFECT HITS: ${PHITS}`;
+  document.querySelector("#misses").textContent = `MISSES: ${MISSES}`;
   document.querySelector(
     "#cCombo"
   ).innerText = `CURRENT COMBO: ${currentCombo}`;
@@ -42,10 +51,26 @@ let PHITS = 0;
 //objects
 let placeHolderSong = {
   bpm: 140,
-  upArrows: [13, 21, 27, 31, 43, 53, 54, 60, 62, 64, 65],
-  downArrows: [1, 17, 25, 29, 33, 37, 41, 42, 47, 51, 55, 58, 64, 66],
-  leftArrows: [9, 30, 35, 45, 46, 59, 63, 68],
-  rightArrows: [7, 32, 39, 49, 50, 57, 61, 67],
+  upArrows: [
+    13, 21, 27, 31, 37, 43, 53, 54, 60, 62, 64, 65, 74, 77, 80, 93, 97, 103,
+    107, 111, 115, 118, 121, 122, 129, 134, 141, 145, 146, 152, 156, 159, 161,
+    169, 174, 177, 178, 180, 185, 186,
+  ],
+  downArrows: [
+    1, 17, 25, 29, 33, 41, 42, 47, 51, 55, 58, 64, 66, 70, 73, 78, 82, 86, 90,
+    92, 95, 101, 107, 112, 114, 121, 123, 130, 132, 136, 143, 147, 148, 150,
+    154, 159, 161, 172, 176, 177, 179, 182, 184, 186, 192,
+  ],
+  leftArrows: [
+    9, 30, 35, 45, 46, 59, 63, 68, 71, 75, 83, 85, 88, 91, 96, 98, 99, 105, 110,
+    113, 117, 119, 127, 128, 131, 135, 139, 151, 155, 160, 163, 165, 166, 170,
+    175, 183, 188, 191,
+  ],
+  rightArrows: [
+    7, 32, 39, 49, 50, 57, 61, 67, 69, 79, 81, 84, 87, 89, 94, 99, 102, 106,
+    109, 113, 117, 125, 126, 133, 137, 138, 140, 149, 153, 157, 160, 162, 164,
+    167, 168, 171, 173, 181, 187, 189, 190,
+  ],
   delay: 5500,
 };
 
@@ -105,7 +130,9 @@ class stepChart {
           }
         }
         currentBeat++;
-        document.querySelector("canvas").style.border = "10px solid red";
+        //document.querySelector("canvas").style.border = "10px solid red";
+        ctx.shadowColor = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+        ctx.shadowBlur = 50;
       }, this.tempo);
     }, this.delay);
   }
@@ -174,6 +201,8 @@ function collisions() {
           greatestCombo = currentCombo;
         }
         currentCombo = 0;
+        missHit = true;
+        MISSES++;
       }
       if (arrows[i] !== undefined) {
         if (arrows[i].direction === keyPressArrow) {
@@ -182,15 +211,19 @@ function collisions() {
             arrows.splice(i, 1);
             switch (keyPressArrow) {
               case "ArrowLeft":
+                pHit = true;
                 pHitL = true;
                 break;
               case "ArrowRight":
+                pHit = true;
                 pHitR = true;
                 break;
               case "ArrowUp":
+                pHit = true;
                 pHitU = true;
                 break;
               case "ArrowDown":
+                pHit = true;
                 pHitD = true;
                 break;
             }
@@ -203,15 +236,19 @@ function collisions() {
             arrows.splice(i, 1);
             switch (keyPressArrow) {
               case "ArrowLeft":
+                okHit = true;
                 okHitL = true;
                 break;
               case "ArrowRight":
+                okHit = true;
                 okHitR = true;
                 break;
               case "ArrowUp":
+                okHit = true;
                 okHitU = true;
                 break;
               case "ArrowDown":
+                okHit = true;
                 okHitD = true;
                 break;
             }
@@ -219,16 +256,23 @@ function collisions() {
             currentCombo++;
             OKHITS++;
             score++;
+          } else {
+            health = health - 5;
+            missHit = true;
+            MISSES++;
           }
         }
       }
     }
   }
 }
+let missHit = false;
+let okHit = false;
 let okHitL = false;
 let okHitR = false;
 let okHitU = false;
 let okHitD = false;
+let pHit = false;
 let pHitL = false;
 let pHitR = false;
 let pHitU = false;
@@ -236,6 +280,7 @@ let pHitD = false;
 //--------------------------------------------
 function controls() {
   window.addEventListener("keydown", (event) => {
+    event.preventDefault();
     const key = event.key;
     switch (key) {
       case "ArrowLeft":
@@ -277,9 +322,37 @@ function startGame(song) {
   let keyPressFramesR = 0;
   let keyPressFramesU = 0;
   let keyPressFramesD = 0;
+  let popUpHitValuesFrames = 0;
   mainCanvasIntervalID = setInterval(function () {
     ctx.clearRect(0, 0, 500, 750);
     drawLandingRow();
+
+    //draws the pop up miss, great, and perfects images
+    if (missHit) {
+      ctx.drawImage(missImg, 100, 300, 300, 75);
+      popUpHitValuesFrames++;
+      if (popUpHitValuesFrames > 16) {
+        missHit = false;
+        popUpHitValuesFrames = 0;
+      }
+    }
+    if (okHit) {
+      ctx.drawImage(okHitImg, 100, 300, 300, 75);
+      popUpHitValuesFrames++;
+      if (popUpHitValuesFrames > 16) {
+        okHit = false;
+        popUpHitValuesFrames = 0;
+      }
+    }
+    if (pHit) {
+      ctx.drawImage(pHitImg, 100, 300, 300, 75);
+      popUpHitValuesFrames++;
+      if (popUpHitValuesFrames > 16) {
+        pHit = false;
+        popUpHitValuesFrames = 0;
+      }
+    }
+
     if (keyPressArrowL) {
       if (pHitL) {
         ctx.drawImage(hitRowImg, 0, 65, 62, 60, 0, 0, 121, 120);
