@@ -1,0 +1,36 @@
+canvas {
+  border: 10px solid grey;
+  margin-top: 0vhs;
+  border-radius: 10px;
+}
+#game-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: static;
+}
+body {
+  background-color: black;
+  background-image: url(/imgs/DDR/vortex1background.gif);
+  background-position: center;
+  background-size: 1920px 1080px;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+body button {
+  font-size: 30px;
+  background-color: #870007;
+  color: #fff;
+  padding: 20px 40px;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+span {
+  color: #fff;
+}
