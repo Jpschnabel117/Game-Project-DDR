@@ -10,14 +10,7 @@ landingRowImg.src = "/imgs/DDR/landingArrowCheck.png";
 let greenArrowsImg = new Image();
 greenArrowsImg.src = "/imgs/DDR/DDRgreenArrows.png";
 
-function drawHitRow(/*tempo*/) {
-  //   let alt = true;
-  //   setInterval(function () {
-  //     if (alt) {
-  //       ctx.drawImage(landingRowImg, 0, 0);
-  //     } else {
-  //     }
-  //   }, tempo);
+function drawLandingRow(/*tempo*/) {
   ctx.drawImage(landingRowImg, 0, 0, 255, 60, 0, 0, 500, 120);
 }
 
@@ -109,10 +102,10 @@ class arrowObj {
   }
   draw() {
     switch (this.direction) {
-      case "left":
+      case "ArrowLeft":
         ctx.drawImage(greenArrowsImg, 0, 0, 62, 60, 0, this.yCord, 125, 120);
         break;
-      case "right":
+      case "ArrowRight":
         ctx.drawImage(
           greenArrowsImg,
           190,
@@ -125,7 +118,7 @@ class arrowObj {
           120
         );
         break;
-      case "up":
+      case "ArrowUp":
         ctx.drawImage(
           greenArrowsImg,
           125,
@@ -138,7 +131,7 @@ class arrowObj {
           120
         );
         break;
-      case "down":
+      case "ArrowDown":
         ctx.drawImage(greenArrowsImg, 62, 0, 62, 60, 120, this.yCord, 125, 120);
         break;
       default:
@@ -163,6 +156,8 @@ function collisions() {
         }
         currentCombo = 0;
       }
+      if (arrows[i].direction === keyPressArrow) {
+      }
     }
   }
 }
@@ -173,28 +168,83 @@ function controls() {
     const key = event.key;
     switch (key) {
       case "ArrowLeft":
+        keyPressArrow = "ArrowLeft";
+        keyPressArrowL = true;
         break;
       case "ArrowRight":
+        keyPressArrow = "ArrowRight";
+        keyPressArrowR = true;
         break;
       case "ArrowUp":
+        keyPressArrow = "ArrowUp";
+        keyPressArrowU = true;
         break;
       case "ArrowDown":
+        keyPressArrow = "ArrowDown";
+        keyPressArrowD = true;
         break;
     }
   });
 }
 //-----------------------------------
+let keyPressArrow = "";
+let keyPressArrowL = false;
+let keyPressArrowR = false;
+let keyPressArrowU = false;
+let keyPressArrowD = false;
+
+//----------------------------------
 
 let currentSong = new stepChart(placeHolderSong);
 
 function startGame(song) {
   /*USEING setTimeout() DELAY THE START OF MUSIC BY AMOUNT === TIME IT TAKES TO SCROLL UP*/
   song.startSongInterval();
+  controls();
+  let mCIFrames = 0;
+  let keyPressFramesL = 0;
+  let keyPressFramesR = 0;
+  let keyPressFramesU = 0;
+  let keyPressFramesD = 0;
   mainCanvasIntervalID = setInterval(function () {
     ctx.clearRect(0, 0, 500, 750);
-    drawHitRow();
+    drawLandingRow();
+    if (keyPressArrowL) {
+      ctx.drawImage(landingRowImg, 255, 0, 62, 60, 0, 0, 121, 120);
+      keyPressFramesL++;
+      if (keyPressFramesL > 8) {
+        keyPressFramesL = 0;
+        keyPressArrowL = false;
+      }
+    }
+    if (keyPressArrowR) {
+      // if conditional for normal press, great hit, perfect hit
+      ctx.drawImage(landingRowImg, 448, 0, 62, 60, 375, 0, 125, 120);
+      keyPressFramesR++;
+      if (keyPressFramesR > 8) {
+        keyPressFramesR = 0;
+        keyPressArrowR = false;
+      }
+    }
+    if (keyPressArrowU) {
+      ctx.drawImage(landingRowImg, 382, 0, 62, 60, 250, 0, 119, 120);
+      keyPressFramesU++;
+      if (keyPressFramesU > 8) {
+        keyPressFramesU = 0;
+        keyPressArrowU = false;
+      }
+    }
+    if (keyPressArrowD) {
+      ctx.drawImage(landingRowImg, 318, 0, 62, 60, 125, 0, 117, 120);
+      keyPressFramesD++;
+      if (keyPressFramesD > 8) {
+        keyPressFramesD = 0;
+        keyPressArrowD = false;
+      }
+    }
     updateStats();
     collisions(); // and active arrow draw
+    mCIFrames++;
   }, 16);
 }
 window.onload = () => {
