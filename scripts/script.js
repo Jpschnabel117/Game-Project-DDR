@@ -1,5 +1,9 @@
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const canvas1 = document.getElementById("canvas");
+const ctx = canvas1.getContext("2d");
+
+const canvasH = document.getElementById("canvasHealth");
+const ctxH = canvasH.getContext("2d");
+
 
 let hitRowImg = new Image();
 hitRowImg.src = "/imgs/DDR/HitArrow.png";
@@ -23,7 +27,14 @@ function drawLandingRow(/*tempo*/) {
   ctx.drawImage(landingRowImg, 0, 0, 255, 60, 0, 0, 500, 120);
 }
 
-function drawUI() {} // implement
+function drawUI() {
+
+} // implement
+function healthBar(){
+  
+}
+
+
 
 //utility functions
 function updateStats() {

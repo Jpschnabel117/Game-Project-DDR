@@ -8,23 +8,28 @@
     <title>DDR</title>
   </head>
   <body>
-    <div class="game-intro">
-      <button id="start-button">DANCE!!!</button>
-      <audio
-        id="im-for-real"
-        src="/imgs/DDR/SLAKE feat JP Miles  IM FOR REAL HQ.mp3"
-      ></audio>
+    <div id="health">
+      <canvas id="canvasHealth" width="500" height="30"> </canvas>
     </div>
-    <div id="game-board">
-      <canvas id="canvas" width="500" height="750"> </canvas>
-    </div>
-    <div id="score-screen">
-      <div><span id="score">SCORE: </span></div>
-      <div><span id="okHits">O.K. HITS: </span></div>
-      <div><span id="pHits">PERFECT HITS: </span></div>
-      <div><span id="misses">MISSES: </span></div>
-      <div><span id="cCombo">CURRENT COMBO: </span></div>
-      <div><span id="gCombo">GREATEST COMBO: </span></div>
+    <div id="playspace-score">
+      <div class="game-intro">
+        <button id="start-button">DANCE!!!</button>
+        <audio
+          id="im-for-real"
+          src="/imgs/DDR/SLAKE feat JP Miles  IM FOR REAL HQ.mp3"
+        ></audio>
+      </div>
+      <div id="game-board">
+        <canvas id="canvas" width="500" height="750"> </canvas>
+      </div>
+      <div id="score-screen">
+        <div><span id="score">SCORE: </span></div>
+        <div><span id="okHits">O.K. HITS: </span></div>
+        <div><span id="pHits">PERFECT HITS: </span></div>
+        <div><span id="misses">MISSES: </span></div>
+        <div><span id="cCombo">CURRENT COMBO: </span></div>
+        <div><span id="gCombo">GREATEST COMBO: </span></div>
+      </div>
     </div>
 
     <script type="text/javascript" src="scripts/script.js"></script>

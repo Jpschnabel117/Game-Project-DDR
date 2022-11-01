@@ -1,4 +1,10 @@
+#canvasHealth {
+  border: 5px dashed;
+  border-radius: 10px;
+  margin-left: 65px;
+}
 #game-board {
+  border: 10px solid blue;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,6 +13,11 @@
   margin-right: 20px;
   margin-left: 20px;
 }
+#playspace-score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 body {
   background-color: black;
   background-image: url(/imgs/DDR/vortex1background.gif);
@@ -14,7 +25,7 @@ body {
   background-size: 1920px 1080px;
   background-repeat: no-repeat;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 body button {
