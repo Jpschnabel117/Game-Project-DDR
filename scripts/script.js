@@ -78,6 +78,56 @@ let tripmachinesong = {
   highscore: 0,
   songid: "trip-machine",
 };
+let keepmovingonsong = {
+  bpm: 132,
+  upArrows: [
+    11, 26, 29, 30, 43, 44, 61, 71, 72, 81, 82, 83, 85, 86, 87, 94, 96, 97, 100,
+    104, 113, 114, 120, 123, 124, 127,
+  ],
+  downArrows: [
+    2, 4, 8, 16, 18, 20, 24, 26, 27, 28, 31, 32, 41, 50, 58, 61, 63, 69, 70, 75,
+    76, 79, 80, 89, 90, 95, 96, 98, 99, 105, 108, 115, 116, 121, 126, 128,
+  ],
+  leftArrows: [
+    1, 14, 15, 19, 33, 34, 36, 37, 46, 49, 52, 57, 62, 65, 66, 73, 74, 88, 97,
+    98, 103, 109, 110, 113, 116, 117, 118, 122, 129,
+  ],
+  rightArrows: [
+    3, 5, 6, 7, 9, 12, 13, 17, 21, 22, 23, 25, 33, 35, 37, 45, 47, 51, 53, 57,
+    59, 64, 67, 68, 77, 78, 84, 91, 92, 99, 100, 101, 102, 111, 112, 114, 115,
+    119, 125, 129,
+  ],
+  delay: 5900,
+  highscore: 0,
+  songid: "keep-on-movin",
+};
+let boomboomdollarsong = {
+  bpm: 170,
+  upArrows: [
+    13, 17, 18, 29, 33, 35, 37, 38, 50, 52, 56, 65, 69, 81, 89, 92, 97, 98, 113,
+    114, 117, 121, 122, 123, 124, 157, 158, 169, 170, 171, 172, 173, 174, 175,
+    176, 185, 186, 189, 190,
+  ],
+  downArrows: [
+    5, 6, 14, 19, 20, 25, 26, 30, 42, 45, 47, 57, 59, 62, 63, 64, 68, 70, 73,
+    84, 90, 91, 106, 109, 111, 112, 115, 116, 119, 120, 125, 126, 127, 159, 160,
+    161, 162, 163, 164, 165, 166, 167, 168, 177, 178, 179, 180, 181, 182, 183,
+    184, 187, 188, 191, 192,
+  ],
+  leftArrows: [
+    3, 4, 8, 11, 12, 16, 23, 24, 28, 32, 36, 39, 41, 44, 48, 51, 54, 58, 61, 67,
+    71, 74, 76, 79, 80, 82, 85, 87, 93, 96, 99, 100, 103, 105, 108, 115, 118,
+    128, 131, 132, 135, 137, 138, 141, 143, 146, 148, 151, 152, 154, 156, 193,
+  ],
+  rightArrows: [
+    1, 2, 7, 9, 10, 15, 21, 22, 27, 31, 34, 40, 43, 46, 49, 53, 55, 60, 66, 72,
+    75, 77, 78, 83, 86, 88, 94, 95, 101, 102, 104, 107, 110, 116, 129, 130, 133,
+    134, 136, 139, 140, 142, 144, 145, 147, 149, 150, 153, 155,
+  ],
+  delay: 10250,
+  highscore: 0,
+  songid: "boom-boom-dollar",
+};
 
 let playscreen = document.getElementById("play-screen");
 playscreen.style.display = "none";
@@ -93,6 +143,7 @@ function loadSongSelectionMenu() {
   let tripMachineButton = document.getElementById("Song-sptripmachine");
   let imForRealButton = document.getElementById("Song-imforreal");
   let keepOnMovingButton = document.getElementById("Song-keepOnMoving");
+  let boomBoomDollarButton = document.getElementById("Song-boomboomdollar");
 
   imForRealButton.onclick = () => {
     songSelectionMenu.style.display = "none";
@@ -104,7 +155,11 @@ function loadSongSelectionMenu() {
   };
   keepOnMovingButton.onclick = () => {
     songSelectionMenu.style.display = "none";
-    loadPlayScreen(imforrealsong);
+    loadPlayScreen(keepmovingonsong);
+  };
+  boomBoomDollarButton.onclick = () => {
+    songSelectionMenu.style.display = "none";
+    loadPlayScreen(boomboomdollarsong);
   };
   // other two song starts
   imForRealButton.onmouseenter = () => {
@@ -118,6 +173,10 @@ function loadSongSelectionMenu() {
   tripMachineButton.onmouseenter = () => {
     document.querySelector("body").style.backgroundImage =
       "url('/imgs/DDR/tripmachineBG.png')";
+  };
+  boomBoomDollarButton.onmouseenter = () => {
+    document.querySelector("body").style.backgroundImage =
+      "url('/imgs/DDR/boomboomdollarBG.PNG')";
   };
 }
 
