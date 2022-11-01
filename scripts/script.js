@@ -25,9 +25,7 @@ pHitImg.src = "/imgs/DDR/perfect.png";
 let comboImg = new Image();
 comboImg.src = "/imgs/DDR/Combos.png";
 
-let songSelectionMenu = document.getElementById("song-selection");
-
-let placeHolderSong = {
+let imforrealsong = {
   bpm: 140,
   upArrows: [
     13, 21, 27, 31, 37, 43, 53, 54, 60, 62, 64, 65, 74, 77, 80, 93, 97, 103,
@@ -50,10 +48,78 @@ let placeHolderSong = {
     167, 168, 171, 173, 181, 187, 189, 190,
   ],
   delay: 5500,
+  highscore: 0,
+  songid: "im-for-real",
+};
+let tripmachinesong = {
+  bpm: 160,
+  upArrows: [
+    2, 4, 9, 18, 20, 25, 35, 39, 41, 45, 55, 66, 77, 80, 96, 97, 105, 108, 113,
+    118, 121, 129, 130, 132, 135, 137, 140, 141, 149, 160, 169, 173, 178, 181,
+    186, 190,
+  ],
+  downArrows: [
+    7, 10, 14, 16, 23, 26, 30, 32, 34, 36, 40, 45, 47, 51, 56, 59, 60, 69, 74,
+    75, 81, 84, 90, 91, 95, 98, 103, 104, 106, 110, 111, 114, 119, 120, 122,
+    135, 138, 142, 143, 146, 149, 152, 159, 161, 168, 174, 175, 182, 183, 189,
+    193,
+  ],
+  leftArrows: [
+    6, 12, 24, 27, 29, 31, 32, 33, 37, 43, 46, 48, 53, 58, 79, 83, 86, 87, 93,
+    99, 102, 107, 110, 111, 115, 120, 123, 127, 128, 134, 136, 145, 148, 151,
+    153, 157, 162, 165, 167, 171, 177, 180, 185, 187, 191,
+  ],
+  rightArrows: [
+    8, 11, 13, 15, 16, 22, 28, 33, 38, 42, 44, 46, 49, 57, 61, 62, 63, 64, 65,
+    68, 70, 78, 82, 94, 99, 104, 108, 112, 115, 118, 123, 125, 133, 136, 144,
+    147, 150, 155, 158, 163, 166, 168, 179, 188, 192,
+  ],
+  delay: 10350,
+  highscore: 0,
+  songid: "trip-machine",
 };
 
 let playscreen = document.getElementById("play-screen");
 playscreen.style.display = "none";
+
+let songSelectionMenu = document.getElementById("song-selection");
+songSelectionMenu.style.display = "none";
+
+document.getElementById("game-board").style.display = "none";
+document.getElementById("score-screen").style.display = "none"; // temporary
+
+function loadSongSelectionMenu() {
+  songSelectionMenu.style.display = "flex";
+  let tripMachineButton = document.getElementById("Song-sptripmachine");
+  let imForRealButton = document.getElementById("Song-imforreal");
+  let keepOnMovingButton = document.getElementById("Song-keepOnMoving");
+
+  imForRealButton.onclick = () => {
+    songSelectionMenu.style.display = "none";
+    loadPlayScreen(imforrealsong);
+  };
+  tripMachineButton.onclick = () => {
+    songSelectionMenu.style.display = "none";
+    loadPlayScreen(tripmachinesong);
+  };
+  keepOnMovingButton.onclick = () => {
+    songSelectionMenu.style.display = "none";
+    loadPlayScreen(imforrealsong);
+  };
+  // other two song starts
+  imForRealButton.onmouseenter = () => {
+    document.querySelector("body").style.backgroundImage =
+      "url('/imgs/DDR/imforrealCover.png')";
+  };
+  keepOnMovingButton.onmouseenter = () => {
+    document.querySelector("body").style.backgroundImage =
+      "url('/imgs/DDR/letthemmoveBG.png')";
+  };
+  tripMachineButton.onmouseenter = () => {
+    document.querySelector("body").style.backgroundImage =
+      "url('/imgs/DDR/tripmachineBG.png')";
+  };
+}
 
 function loadPlayScreen(CHOSENSONG) {
   playscreen.style.display = "";
@@ -466,9 +532,9 @@ function loadPlayScreen(CHOSENSONG) {
       }
       if (currentCombo > 1) {
         ctx.drawImage(comboImg, 150, 400, 150, 37);
-        ctx.fillStyle = "pink";
+        ctx.fillStyle = "gold";
         ctx.textAlign = "center";
-        ctx.font = "30px Sans-Serif";
+        ctx.font = "50px Sans-Serif";
         ctx.fillText(`${currentCombo}`, 225, 470, 100);
       }
       updateStats();
@@ -484,20 +550,19 @@ function loadPlayScreen(CHOSENSONG) {
   }
 
   document.getElementById("start-button").onclick = () => {
-    let audio = document.getElementById("im-for-real");
+    document.getElementById("start-button").style.display = "none";
+    document.getElementById("game-board").style.display = "flex";
+    let audio = document.getElementById(CHOSENSONG.songid);
     audio.play();
     startGame(currentSong);
-    //document.getElementById("start-button").remove(); // fix
   };
 }
 window.onload = () => {
   let startScreen = document.getElementById("start-screen");
   const bigstartButton = document.getElementById("Big-start-button");
   bigstartButton.onclick = () => {
-    //let audio = document.getElementById("im-for-real");
-    //audio.play();
     console.log("click");
     startScreen.style.display = "none"; // fix
-    loadPlayScreen(placeHolderSong);
+    loadSongSelectionMenu();
   };
 };
