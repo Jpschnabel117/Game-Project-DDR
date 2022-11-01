@@ -4,7 +4,6 @@ const ctx = canvas1.getContext("2d");
 const canvasH = document.getElementById("canvasHealth");
 const ctxH = canvasH.getContext("2d");
 
-
 let hitRowImg = new Image();
 hitRowImg.src = "/imgs/DDR/HitArrow.png";
 
@@ -23,43 +22,9 @@ okHitImg.src = "/imgs/DDR/greatHits.png";
 let pHitImg = new Image();
 pHitImg.src = "/imgs/DDR/perfect.png";
 
-function drawLandingRow(/*tempo*/) {
-  ctx.drawImage(landingRowImg, 0, 0, 255, 60, 0, 0, 500, 120);
-}
+let comboImg = new Image();
+comboImg.src = "/imgs/DDR/Combos.png";
 
-function drawUI() {
-
-} // implement
-function healthBar(){
-  
-}
-
-
-
-//utility functions
-function updateStats() {
-  document.querySelector("#score").textContent = `SCORE: ${score}`;
-  document.querySelector("#okHits").textContent = `GREAT HITS: ${OKHITS}`;
-  document.querySelector("#pHits").textContent = `PERFECT HITS: ${PHITS}`;
-  document.querySelector("#misses").textContent = `MISSES: ${MISSES}`;
-  document.querySelector(
-    "#cCombo"
-  ).innerText = `CURRENT COMBO: ${currentCombo}`;
-  document.querySelector(
-    "#gCombo"
-  ).innerText = `GREATEST COMBO: ${greatestCombo}`;
-}
-
-//global variables
-let mainCanvasIntervalID = 0;
-let health = 100;
-let score = 0;
-let currentCombo = 0;
-let greatestCombo = 0;
-let MISSES = 0;
-let OKHITS = 0;
-let PHITS = 0;
-//objects
 let placeHolderSong = {
   bpm: 140,
   upArrows: [
@@ -84,6 +49,42 @@ let placeHolderSong = {
   ],
   delay: 5500,
 };
+
+function loadPlayScreen(CHOSENSONG) {}
+
+function drawLandingRow(/*tempo*/) {
+  ctx.drawImage(landingRowImg, 0, 0, 255, 60, 0, 0, 500, 120);
+}
+
+function drawUI() {} // implement
+function healthBarColor() {
+  ctxH.fillStyle = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+}
+
+//utility functions
+function updateStats() {
+  document.querySelector("#score").textContent = `SCORE: ${score}`;
+  document.querySelector("#okHits").textContent = `GREAT HITS: ${OKHITS}`;
+  document.querySelector("#pHits").textContent = `PERFECT HITS: ${PHITS}`;
+  document.querySelector("#misses").textContent = `MISSES: ${MISSES}`;
+  document.querySelector(
+    "#cCombo"
+  ).innerText = `CURRENT COMBO: ${currentCombo}`;
+  document.querySelector(
+    "#gCombo"
+  ).innerText = `GREATEST COMBO: ${greatestCombo}`;
+}
+
+//global variables
+let mainCanvasIntervalID = 0;
+let health = 50;
+let score = 0;
+let currentCombo = 0;
+let greatestCombo = 0;
+let MISSES = 0;
+let OKHITS = 0;
+let PHITS = 0;
+//objects
 
 //--------------------------------------------
 //major classes
@@ -144,6 +145,7 @@ class stepChart {
         //document.querySelector("canvas").style.border = "10px solid red";
         ctx.shadowColor = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
         ctx.shadowBlur = 50;
+        healthBarColor();
       }, this.tempo);
     }, this.delay);
   }
@@ -207,7 +209,7 @@ function collisions() {
       // miss check
       if (arrows[i].yCord < -80) {
         arrows.splice(i, 1);
-        health = health - 10;
+        health = health - 5;
         if (currentCombo > greatestCombo) {
           greatestCombo = currentCombo;
         }
@@ -220,6 +222,11 @@ function collisions() {
           if (arrows[i].yCord > -55 && arrows[i].yCord < 20) {
             // perfect hit
             arrows.splice(i, 1);
+            if (health >= 100) {
+              health = 100;
+            } else {
+              health += 5;
+            }
             switch (keyPressArrow) {
               case "ArrowLeft":
                 pHit = true;
@@ -245,6 +252,11 @@ function collisions() {
           } else if (arrows[i].yCord > -79 && arrows[i].yCord < 40) {
             // great hit
             arrows.splice(i, 1);
+            if (health >= 100) {
+              health = 100;
+            } else {
+              health += 7;
+            }
             switch (keyPressArrow) {
               case "ArrowLeft":
                 okHit = true;
@@ -268,7 +280,7 @@ function collisions() {
             OKHITS++;
             score++;
           } else {
-            health = health - 5;
+            health = health - 10;
             missHit = true;
             MISSES++;
           }
@@ -323,12 +335,17 @@ let keyPressArrowD = false;
 //----------------------------------
 
 let currentSong = new stepChart(placeHolderSong);
+function endGame() {
+  clearInterval(currentSong.songIntervalID);
+  ctx.clearRect(0, 0, 500, 750);
+}
 
 function startGame(song) {
   /*USEING setTimeout() DELAY THE START OF MUSIC BY AMOUNT === TIME IT TAKES TO SCROLL UP*/
   song.startSongInterval();
   controls();
   let mCIFrames = 0;
+
   let keyPressFramesL = 0;
   let keyPressFramesR = 0;
   let keyPressFramesU = 0;
@@ -340,7 +357,7 @@ function startGame(song) {
 
     //draws the pop up miss, great, and perfects images
     if (missHit) {
-      ctx.drawImage(missImg, 100, 300, 300, 75);
+      ctx.drawImage(missImg, 120, 250, 200, 50);
       popUpHitValuesFrames++;
       if (popUpHitValuesFrames > 16) {
         missHit = false;
@@ -348,7 +365,7 @@ function startGame(song) {
       }
     }
     if (okHit) {
-      ctx.drawImage(okHitImg, 100, 300, 300, 75);
+      ctx.drawImage(okHitImg, 100, 300, 240, 60);
       popUpHitValuesFrames++;
       if (popUpHitValuesFrames > 16) {
         okHit = false;
@@ -431,10 +448,23 @@ function startGame(song) {
         pHitD = false;
       }
     }
+    if (currentCombo > 1) {
+      ctx.drawImage(comboImg, 150, 400, 150, 37);
+      ctx.fillStyle = "pink";
+      ctx.textAlign = "center";
+      ctx.font = "40px Sans-Serif";
+      ctx.fillText(`${currentCombo}`, 225, 500, 100);
+    }
     updateStats();
     collisions(); // and active arrow draw
     mCIFrames++;
     keyPressArrow = "";
+    ctxH.clearRect(0, 0, 500, 30);
+    ctxH.fillRect(0, 0, health * 5, 30);
+    if (health <= 0) {
+      ctxH.clearRect(0, 0, 500, 30);
+      endGame();
+    }
   }, 16);
 }
 window.onload = () => {
