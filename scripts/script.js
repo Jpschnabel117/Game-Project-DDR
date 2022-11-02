@@ -315,6 +315,7 @@ function loadSongSelectionMenu() {
 }
 
 function loadPlayScreen(CHOSENSONG) {
+  document.getElementById("static-sound").pause();
   clearInterval(tvInterval);
   playscreen.style.display = "flex";
   document.getElementById("start-button").style.display = "";
