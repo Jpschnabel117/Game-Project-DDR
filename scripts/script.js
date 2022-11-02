@@ -211,7 +211,7 @@ function loadSongSelectionMenu() {
   };
   tvInterval = setInterval(() => {
     ctxTv.clearRect(0, 0, 700, 550);
-    ctxTv.drawImage(staticImg, 30, 30, 500, 450);
+    ctxTv.drawImage(staticImg, 30, 30, 510, 450);
     imForRealButton.onmouseenter = () => {
       imforrealInterval = true;
     };
@@ -219,7 +219,7 @@ function loadSongSelectionMenu() {
       imforrealInterval = false;
     };
     if (imforrealInterval) {
-      ctxTv.drawImage(imforimg, 30, 30, 500, 450);
+      ctxTv.drawImage(imforimg, 30, 30, 510, 450);
     }
     boomBoomDollarButton.onmouseenter = () => {
       BoomInterval = true;
@@ -228,7 +228,7 @@ function loadSongSelectionMenu() {
       BoomInterval = false;
     };
     if (BoomInterval) {
-      ctxTv.drawImage(boomimg, 30, 30, 500, 450);
+      ctxTv.drawImage(boomimg, 30, 30, 510, 450);
     }
     keepOnMovingButton.onmouseenter = () => {
       keeponmovingInterval = true;
@@ -237,7 +237,7 @@ function loadSongSelectionMenu() {
       keeponmovingInterval = false;
     };
     if (keeponmovingInterval) {
-      ctxTv.drawImage(letmoveimg, 30, 30, 500, 450);
+      ctxTv.drawImage(letmoveimg, 30, 30, 510, 450);
     }
     tripMachineButton.onmouseenter = () => {
       tripmachineInterval = true;
@@ -246,24 +246,11 @@ function loadSongSelectionMenu() {
       tripmachineInterval = false;
     };
     if (tripmachineInterval) {
-      ctxTv.drawImage(tripimg, 30, 30, 500, 450);
+      ctxTv.drawImage(tripimg, 30, 30, 510, 450);
     }
-    ctxTv.drawImage(crtfilterImg, 30, 30, 500, 450);
+    ctxTv.drawImage(crtfilterImg, 30, 30, 510, 450);
     ctxTv.drawImage(tvImg, 0, 0, 700, 550);
   }, 16);
-
-  keepOnMovingButton.onmouseenter = () => {
-    //  document.querySelector("body").style.backgroundImage =
-    //   "url('/imgs/DDR/letthemmoveBG.png')";
-  };
-  tripMachineButton.onmouseenter = () => {
-    //  document.querySelector("body").style.backgroundImage =
-    //    "url('/imgs/DDR/tripmachineBG.png')";
-  };
-  boomBoomDollarButton.onmouseenter = () => {
-    //  document.querySelector("body").style.backgroundImage =
-    //    "url('/imgs/DDR/boomboomdollarBG.PNG')";
-  };
 }
 
 function loadPlayScreen(CHOSENSONG) {
