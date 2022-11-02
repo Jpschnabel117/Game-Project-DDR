@@ -28,6 +28,20 @@ pHitImg.src = "/imgs/DDR/perfect.png";
 let comboImg = new Image();
 comboImg.src = "/imgs/DDR/Combos.png";
 
+//ranks
+let sPlusRank = new Image();
+sPlusRank.src = "/imgs/DDR/SplusRank.png";
+let sRank = new Image();
+sRank.src = "/imgs/DDR/Srank.png";
+let aRank = new Image();
+aRank.src = "/imgs/DDR/A_Rank.png";
+let bRank = new Image();
+bRank.src = "/imgs/DDR/B_rank.png";
+let cRank = new Image();
+cRank.src = "/imgs/DDR/C_Rank.png";
+let failureImg = new Image();
+failureImg.src = "/imgs/DDR/FAILURE.png";
+
 //backgrounds
 let boomimg = new Image();
 boomimg.src = "/imgs/DDR/boomboomdollarBG.PNG";
@@ -69,6 +83,7 @@ let imforrealsong = {
   delay: 5500,
   highscore: 0,
   songid: "im-for-real",
+  songLength: 92,
 };
 let tripmachinesong = {
   bpm: 160,
@@ -96,6 +111,7 @@ let tripmachinesong = {
   delay: 10350,
   highscore: 0,
   songid: "trip-machine",
+  songLength: 88,
 };
 let keepmovingonsong = {
   bpm: 132,
@@ -119,6 +135,7 @@ let keepmovingonsong = {
   delay: 5900,
   highscore: 0,
   songid: "keep-on-movin",
+  songLength: 67,
 };
 let boomboomdollarsong = {
   bpm: 170,
@@ -146,6 +163,7 @@ let boomboomdollarsong = {
   delay: 10250,
   highscore: 0,
   songid: "boom-boom-dollar",
+  songLength: 81,
 };
 let tvInterval = 0;
 let playscreen = document.getElementById("play-screen");
@@ -257,21 +275,17 @@ function loadPlayScreen(CHOSENSONG) {
 
   //utility functions
   function updateStats() {
-    document.querySelector("#score").textContent = `SCORE: ${score}`;
-    document.querySelector("#okHits").textContent = `GREAT HITS: ${OKHITS}`;
-    document.querySelector("#pHits").textContent = `PERFECT HITS: ${PHITS}`;
-    document.querySelector("#misses").textContent = `MISSES: ${MISSES}`;
-    document.querySelector(
-      "#cCombo"
-    ).innerText = `CURRENT COMBO: ${currentCombo}`;
-    document.querySelector(
-      "#gCombo"
-    ).innerText = `GREATEST COMBO: ${greatestCombo}`;
+    document.querySelector("#score").textContent = `${score}`;
+    document.querySelector("#okHits").textContent = `${OKHITS}`;
+    document.querySelector("#pHits").textContent = `${PHITS}`;
+    document.querySelector("#misses").textContent = `${MISSES}`;
+    document.querySelector("#cCombo").innerText = `${currentCombo}`;
+    document.querySelector("#gCombo").innerText = `${greatestCombo}`;
   }
 
   //global variables
   let mainCanvasIntervalID = 0;
-  let health = 50;
+  let health = 75;
   let score = 0;
   let currentCombo = 0;
   let greatestCombo = 0;
@@ -487,7 +501,7 @@ function loadPlayScreen(CHOSENSONG) {
               OKHITS++;
               score++;
             } else {
-              health = health - 10;
+              health = health - 5;
               missHit = true;
               MISSES++;
             }
@@ -540,18 +554,44 @@ function loadPlayScreen(CHOSENSONG) {
   let keyPressArrowD = false;
 
   //----------------------------------
-
-  function endGame() {
+  let currentSong = new stepChart(CHOSENSONG);
+  function endGame(winorlose) {
     clearInterval(currentSong.songIntervalID);
     clearInterval(mainCanvasIntervalID);
     ctx.clearRect(0, 0, 500, 750);
+    if (winorlose === "win") {
+      switch (true) {
+        case MISSES === 0:
+          ctx.drawImage(sPlusRank, 125, 50, 250, 150);
+          break;
+        case MISSES <= 5:
+          ctx.drawImage(sRank, 197, 90, 95, 100);
+          break;
+        case MISSES <= 10:
+          ctx.drawImage(aRank, 197, 90, 95, 100);
+          break;
+        case MISSES <= 15:
+          ctx.drawImage(bRank, 197, 90, 95, 100);
+          break;
+        default:
+          ctx.drawImage(cRank, 197, 90, 95, 100);
+          break;
+      }
+    } else {
+      //ctx.drawImage(sRank, 197, 90, 95, 100);
+      ctx.drawImage(failureImg, 10, 50, 477, 151);
+    }
     document.getElementById("game-intro").style.display = "none";
     document.getElementById("score-screen").style.display = "flex";
   }
-  let currentSong = new stepChart(CHOSENSONG);
   function startGame(song) {
     /*USEING setTimeout() DELAY THE START OF MUSIC BY AMOUNT === TIME IT TAKES TO SCROLL UP*/
     song.startSongInterval();
+    let currentSongTime = 0;
+    let currentTimeInterval = 0;
+    currentTimeInterval = setInterval(() => {
+      currentSongTime++;
+    }, 1000);
     controls();
 
     let keyPressFramesL = 0;
@@ -559,7 +599,7 @@ function loadPlayScreen(CHOSENSONG) {
     let keyPressFramesU = 0;
     let keyPressFramesD = 0;
     let popUpHitValuesFrames = 0;
-    mainCanvasIntervalID = setInterval(function () {
+    mainCanvasIntervalID = setInterval(() => {
       ctx.clearRect(0, 0, 500, 750);
       drawLandingRow();
 
@@ -658,7 +698,7 @@ function loadPlayScreen(CHOSENSONG) {
       }
       if (currentCombo > 1) {
         ctx.drawImage(comboImg, 125, 300, 200, 50);
-        ctx.font = "40px Michroma";
+        ctx.font = "40px 'Fredoka One'";
         ctx.fillStyle = "pink";
         ctx.textAlign = "left";
         //ctx.font = "50px";
@@ -669,9 +709,16 @@ function loadPlayScreen(CHOSENSONG) {
       keyPressArrow = "";
       ctxH.clearRect(0, 0, 500, 30);
       ctxH.fillRect(0, 0, health * 5, 30);
-      if (health <= 0) {
+
+      if (currentSongTime >= CHOSENSONG.songLength) {
+        clearInterval(currentTimeInterval);
         ctxH.clearRect(0, 0, 500, 30);
-        endGame();
+        endGame("win");
+      }
+      if (health <= 0) {
+        clearInterval(currentTimeInterval);
+        ctxH.clearRect(0, 0, 500, 30);
+        endGame("loss");
       }
     }, 16);
   }

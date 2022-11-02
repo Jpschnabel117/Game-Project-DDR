@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Michroma&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Michroma&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -60,12 +60,24 @@
           <canvas id="canvas" width="500" height="750"> </canvas>
         </div>
         <div id="score-screen">
-          <div><span id="score">SCORE: </span></div>
-          <div><span id="okHits">O.K. HITS: </span></div>
-          <div><span id="pHits">PERFECT HITS: </span></div>
-          <div><span id="misses">MISSES: </span></div>
-          <div><span id="cCombo">CURRENT COMBO: </span></div>
-          <div><span id="gCombo">GREATEST COMBO: </span></div>
+          <div class="stats">
+            SCORE:<span id="score" class="scoreNums"> </span>
+          </div>
+          <div class="stats">
+            GREAT HITS:<span id="okHits" class="scoreNums"> </span>
+          </div>
+          <div class="stats">
+            PERFECT HITS:<span id="pHits" class="scoreNums"> </span>
+          </div>
+          <div class="stats">
+            MISSES:<span id="misses" class="scoreNums"> </span>
+          </div>
+          <div class="stats">
+            CURRENT COMBO:<span id="cCombo" class="scoreNums"> </span>
+          </div>
+          <div class="stats">
+            GREATEST COMBO:<span id="gCombo" class="scoreNums"> </span>
+          </div>
         </div>
       </div>
     </div>
