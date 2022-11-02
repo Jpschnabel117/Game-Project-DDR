@@ -202,18 +202,22 @@ function loadSongSelectionMenu() {
   let keeponmovingInterval = false;
 
   imForRealButton.onclick = () => {
+    document.getElementById("im-for-real").currentTime = 0;
     songSelectionMenu.style.display = "none";
     loadPlayScreen(imforrealsong);
   };
   tripMachineButton.onclick = () => {
+    document.getElementById("trip-machine").currentTime = 0;
     songSelectionMenu.style.display = "none";
     loadPlayScreen(tripmachinesong);
   };
   keepOnMovingButton.onclick = () => {
+    document.getElementById("keep-on-movin").currentTime = 0;
     songSelectionMenu.style.display = "none";
     loadPlayScreen(keepmovingonsong);
   };
   boomBoomDollarButton.onclick = () => {
+    document.getElementById("boom-boom-dollar").currentTime = 0;
     songSelectionMenu.style.display = "none";
     loadPlayScreen(boomboomdollarsong);
   };
