@@ -4,6 +4,9 @@ const ctx = canvas1.getContext("2d");
 const canvasH = document.getElementById("canvasHealth");
 const ctxH = canvasH.getContext("2d");
 
+const canvasTv = document.getElementById("tv-screen-canvas");
+const ctxTv = canvasTv.getContext("2d");
+
 let hitRowImg = new Image();
 hitRowImg.src = "/imgs/DDR/HitArrow.png";
 
@@ -24,6 +27,22 @@ pHitImg.src = "/imgs/DDR/perfect.png";
 
 let comboImg = new Image();
 comboImg.src = "/imgs/DDR/Combos.png";
+
+//backgrounds
+let boomimg = new Image();
+boomimg.src = "/imgs/DDR/boomboomdollarBG.PNG";
+let imforimg = new Image();
+imforimg.src = "/imgs/DDR/imforrealCover.png";
+let tripimg = new Image();
+tripimg.src = "/imgs/DDR/tripmachineBG.png";
+let letmoveimg = new Image();
+letmoveimg.src = "/imgs/DDR/letthemmoveBG.png";
+let tvImg = new Image();
+tvImg.src = "/imgs/DDR/tvoverlay.png";
+let staticImg = new Image();
+staticImg.src = "/imgs/DDR/static.png";
+let crtfilterImg = new Image();
+crtfilterImg.src = "/imgs/DDR/crtfilter.png";
 
 let imforrealsong = {
   bpm: 140,
@@ -128,7 +147,7 @@ let boomboomdollarsong = {
   highscore: 0,
   songid: "boom-boom-dollar",
 };
-
+let tvInterval = 0;
 let playscreen = document.getElementById("play-screen");
 playscreen.style.display = "none";
 
@@ -136,14 +155,21 @@ let songSelectionMenu = document.getElementById("song-selection");
 songSelectionMenu.style.display = "none";
 
 document.getElementById("game-board").style.display = "none";
-document.getElementById("score-screen").style.display = "none"; // temporary
+document.getElementById("score-screen").style.display = "none";
 
 function loadSongSelectionMenu() {
+  document.querySelector("body").style.backgroundImage =
+    "url('/imgs/DDR/retrowave.gif')";
   songSelectionMenu.style.display = "flex";
   let tripMachineButton = document.getElementById("Song-sptripmachine");
   let imForRealButton = document.getElementById("Song-imforreal");
   let keepOnMovingButton = document.getElementById("Song-keepOnMoving");
   let boomBoomDollarButton = document.getElementById("Song-boomboomdollar");
+
+  let BoomInterval = false;
+  let tripmachineInterval = false;
+  let imforrealInterval = false;
+  let keeponmovingInterval = false;
 
   imForRealButton.onclick = () => {
     songSelectionMenu.style.display = "none";
@@ -161,26 +187,65 @@ function loadSongSelectionMenu() {
     songSelectionMenu.style.display = "none";
     loadPlayScreen(boomboomdollarsong);
   };
-  // other two song starts
-  imForRealButton.onmouseenter = () => {
-    document.querySelector("body").style.backgroundImage =
-      "url('/imgs/DDR/imforrealCover.png')";
-  };
+  tvInterval = setInterval(() => {
+    ctxTv.clearRect(0, 0, 700, 550);
+    ctxTv.drawImage(staticImg, 30, 30, 500, 450);
+    imForRealButton.onmouseenter = () => {
+      imforrealInterval = true;
+    };
+    imForRealButton.onmouseleave = () => {
+      imforrealInterval = false;
+    };
+    if (imforrealInterval) {
+      ctxTv.drawImage(imforimg, 30, 30, 500, 450);
+    }
+    boomBoomDollarButton.onmouseenter = () => {
+      BoomInterval = true;
+    };
+    boomBoomDollarButton.onmouseleave = () => {
+      BoomInterval = false;
+    };
+    if (BoomInterval) {
+      ctxTv.drawImage(boomimg, 30, 30, 500, 450);
+    }
+    keepOnMovingButton.onmouseenter = () => {
+      keeponmovingInterval = true;
+    };
+    keepOnMovingButton.onmouseleave = () => {
+      keeponmovingInterval = false;
+    };
+    if (keeponmovingInterval) {
+      ctxTv.drawImage(letmoveimg, 30, 30, 500, 450);
+    }
+    tripMachineButton.onmouseenter = () => {
+      tripmachineInterval = true;
+    };
+    tripMachineButton.onmouseleave = () => {
+      tripmachineInterval = false;
+    };
+    if (tripmachineInterval) {
+      ctxTv.drawImage(tripimg, 30, 30, 500, 450);
+    }
+    ctxTv.drawImage(crtfilterImg, 30, 30, 500, 450);
+    ctxTv.drawImage(tvImg, 0, 0, 700, 550);
+  }, 16);
+
   keepOnMovingButton.onmouseenter = () => {
-    document.querySelector("body").style.backgroundImage =
-      "url('/imgs/DDR/letthemmoveBG.png')";
+    //  document.querySelector("body").style.backgroundImage =
+    //   "url('/imgs/DDR/letthemmoveBG.png')";
   };
   tripMachineButton.onmouseenter = () => {
-    document.querySelector("body").style.backgroundImage =
-      "url('/imgs/DDR/tripmachineBG.png')";
+    //  document.querySelector("body").style.backgroundImage =
+    //    "url('/imgs/DDR/tripmachineBG.png')";
   };
   boomBoomDollarButton.onmouseenter = () => {
-    document.querySelector("body").style.backgroundImage =
-      "url('/imgs/DDR/boomboomdollarBG.PNG')";
+    //  document.querySelector("body").style.backgroundImage =
+    //    "url('/imgs/DDR/boomboomdollarBG.PNG')";
   };
 }
 
 function loadPlayScreen(CHOSENSONG) {
+  clearInterval(tvInterval);
   playscreen.style.display = "";
   function drawLandingRow(/*tempo*/) {
     ctx.drawImage(landingRowImg, 0, 0, 255, 60, 0, 0, 500, 120);
@@ -275,7 +340,6 @@ function loadPlayScreen(CHOSENSONG) {
             }
           }
           currentBeat++;
-          //document.querySelector("canvas").style.border = "10px solid red";
           ctx.shadowColor = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
           ctx.shadowBlur = 50;
           healthBarColor();
@@ -479,7 +543,10 @@ function loadPlayScreen(CHOSENSONG) {
 
   function endGame() {
     clearInterval(currentSong.songIntervalID);
+    clearInterval(mainCanvasIntervalID);
     ctx.clearRect(0, 0, 500, 750);
+    document.getElementById("game-intro").style.display = "none";
+    document.getElementById("score-screen").style.display = "flex";
   }
   let currentSong = new stepChart(CHOSENSONG);
   function startGame(song) {
@@ -498,7 +565,7 @@ function loadPlayScreen(CHOSENSONG) {
 
       //draws the pop up miss, great, and perfects images
       if (missHit) {
-        ctx.drawImage(missImg, 120, 250, 200, 50);
+        ctx.drawImage(missImg, 120, 175, 200, 50);
         popUpHitValuesFrames++;
         if (popUpHitValuesFrames > 16) {
           missHit = false;
@@ -506,7 +573,7 @@ function loadPlayScreen(CHOSENSONG) {
         }
       }
       if (okHit) {
-        ctx.drawImage(okHitImg, 100, 300, 240, 60);
+        ctx.drawImage(okHitImg, 100, 200, 240, 60);
         popUpHitValuesFrames++;
         if (popUpHitValuesFrames > 16) {
           okHit = false;
@@ -514,7 +581,7 @@ function loadPlayScreen(CHOSENSONG) {
         }
       }
       if (pHit) {
-        ctx.drawImage(pHitImg, 100, 300, 300, 75);
+        ctx.drawImage(pHitImg, 100, 225, 300, 75);
         popUpHitValuesFrames++;
         if (popUpHitValuesFrames > 16) {
           pHit = false;
@@ -590,11 +657,12 @@ function loadPlayScreen(CHOSENSONG) {
         }
       }
       if (currentCombo > 1) {
-        ctx.drawImage(comboImg, 150, 400, 150, 37);
-        ctx.fillStyle = "gold";
-        ctx.textAlign = "center";
-        ctx.font = "50px Sans-Serif";
-        ctx.fillText(`${currentCombo}`, 225, 470, 100);
+        ctx.drawImage(comboImg, 125, 300, 200, 50);
+        ctx.font = "40px Michroma";
+        ctx.fillStyle = "pink";
+        ctx.textAlign = "left";
+        //ctx.font = "50px";
+        ctx.fillText(`${currentCombo}`, 334, 341, 150);
       }
       updateStats();
       collisions(); // and active arrow dra

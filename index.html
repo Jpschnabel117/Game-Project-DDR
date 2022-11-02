@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="styles/style.css" />
     <title>DDR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="start-screen">
@@ -16,18 +22,21 @@
     </div>
     <div id="song-selection">
       <div id="song-choices">
+        <div id="song-covers">SELECT YOUR SONG</div>
+        <button id="Song-keepOnMoving">N.M.R - Keep On Movin</button>
+        <button id="Song-imforreal">SLAKE feat JP Miles IM FOR REAL</button>
         <button id="Song-sptripmachine">
           DE-SIRE - SP-TRIP MACHINE ~JUNGLE MIX
         </button>
-        <button id="Song-imforreal">SLAKE feat JP Miles IM FOR REAL</button>
-        <button id="Song-keepOnMoving">N.M.R - Keep On Movin</button>
         <button id="Song-boomboomdollar">BOOM BOOM DOLLAR K.O.G G3 MIX</button>
       </div>
-      <div id="song-covers">sdasd</div>
+      <div id="tv-screen-div">
+        <canvas id="tv-screen-canvas" width="700" height="550"></canvas>
+      </div>
     </div>
     <div id="play-screen">
       <div id="playspace-score">
-        <div class="game-intro">
+        <div id="game-intro">
           <button id="start-button">CLICK TO START</button>
           <audio
             id="im-for-real"
