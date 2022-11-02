@@ -5,7 +5,7 @@
 }
 #game-board {
   font-family: "Michroma", sans-serif;
-  border: thick double white;
+  border: 40px double rgb(169, 23, 171);
   border-radius: 20px;
   display: flex;
   justify-content: center;
