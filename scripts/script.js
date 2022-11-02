@@ -8,55 +8,55 @@ const canvasTv = document.getElementById("tv-screen-canvas");
 const ctxTv = canvasTv.getContext("2d");
 
 let hitRowImg = new Image();
-hitRowImg.src = "/imgs/DDR/HitArrow.png";
+hitRowImg.src = "./imgs/DDR/HitArrow.png";
 
 let landingRowImg = new Image();
-landingRowImg.src = "/imgs/DDR/landingArrowCheck.png";
+landingRowImg.src = "./imgs/DDR/landingArrowCheck.png";
 
 let greenArrowsImg = new Image();
-greenArrowsImg.src = "/imgs/DDR/DDRgreenArrows.png";
+greenArrowsImg.src = "./imgs/DDR/DDRgreenArrows.png";
 
 let missImg = new Image();
-missImg.src = "/imgs/DDR/missHit.png";
+missImg.src = "./imgs/DDR/missHit.png";
 
 let okHitImg = new Image();
-okHitImg.src = "/imgs/DDR/greatHits.png";
+okHitImg.src = "./imgs/DDR/greatHits.png";
 
 let pHitImg = new Image();
-pHitImg.src = "/imgs/DDR/perfect.png";
+pHitImg.src = "./imgs/DDR/perfect.png";
 
 let comboImg = new Image();
-comboImg.src = "/imgs/DDR/Combos.png";
+comboImg.src = "./imgs/DDR/Combos.png";
 
 //ranks
 let sPlusRank = new Image();
-sPlusRank.src = "/imgs/DDR/SplusRank.png";
+sPlusRank.src = "./imgs/DDR/SplusRank.png";
 let sRank = new Image();
-sRank.src = "/imgs/DDR/Srank.png";
+sRank.src = "./imgs/DDR/Srank.png";
 let aRank = new Image();
-aRank.src = "/imgs/DDR/A_Rank.png";
+aRank.src = "./imgs/DDR/A_Rank.png";
 let bRank = new Image();
-bRank.src = "/imgs/DDR/B_rank.png";
+bRank.src = "./imgs/DDR/B_rank.png";
 let cRank = new Image();
-cRank.src = "/imgs/DDR/C_Rank.png";
+cRank.src = "./imgs/DDR/C_Rank.png";
 let failureImg = new Image();
-failureImg.src = "/imgs/DDR/FAILURE.png";
+failureImg.src = "./imgs/DDR/FAILURE.png";
 
 //backgrounds
 let boomimg = new Image();
-boomimg.src = "/imgs/DDR/boomboomdollarBG.PNG";
+boomimg.src = "./imgs/DDR/boomboomdollarBG.PNG";
 let imforimg = new Image();
-imforimg.src = "/imgs/DDR/imforrealCover.png";
+imforimg.src = "./imgs/DDR/imforrealCover.png";
 let tripimg = new Image();
-tripimg.src = "/imgs/DDR/tripmachineBG.png";
+tripimg.src = "./imgs/DDR/tripmachineBG.png";
 let letmoveimg = new Image();
-letmoveimg.src = "/imgs/DDR/letthemmoveBG.png";
+letmoveimg.src = "./imgs/DDR/letthemmoveBG.png";
 let tvImg = new Image();
-tvImg.src = "/imgs/DDR/tvoverlay.png";
+tvImg.src = "./imgs/DDR/tvoverlay.png";
 let staticImg = new Image();
-staticImg.src = "/imgs/DDR/static.png";
+staticImg.src = "./imgs/DDR/static.png";
 let crtfilterImg = new Image();
-crtfilterImg.src = "/imgs/DDR/crtfilter.png";
+crtfilterImg.src = "./imgs/DDR/crtfilter.png";
 
 let imforrealsong = {
   bpm: 140,
