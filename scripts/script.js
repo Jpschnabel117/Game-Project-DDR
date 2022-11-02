@@ -7,6 +7,12 @@ const ctxH = canvasH.getContext("2d");
 const canvasTv = document.getElementById("tv-screen-canvas");
 const ctxTv = canvasTv.getContext("2d");
 
+document.getElementById("im-for-real").volume = 0.8;
+document.getElementById("trip-machine").volume = 0.8;
+document.getElementById("keep-on-movin").volume = 1;
+document.getElementById("boom-boom-dollar").volume = 0.8;
+document.getElementById("static-sound").volume = 0.5;
+
 let hitRowImg = new Image();
 hitRowImg.src = "./imgs/DDR/HitArrow.png";
 
@@ -224,12 +230,12 @@ function loadSongSelectionMenu() {
 
   let songframecounter = 0;
   let audioOff = true;
-
   tvInterval = setInterval(() => {
     ctxTv.clearRect(0, 0, 700, 550);
     ctxTv.drawImage(staticImg, 30, 30, 510, 450);
     imForRealButton.onmouseenter = () => {
       if (audioOff) {
+        document.getElementById("static-sound").pause();
         audioOff = false;
         document.getElementById("im-for-real").play();
         document.getElementById("im-for-real").currentTime =
@@ -241,12 +247,14 @@ function loadSongSelectionMenu() {
       audioOff = true;
       document.getElementById("im-for-real").pause();
       imforrealInterval = false;
+      document.getElementById("static-sound").play();
     };
     if (imforrealInterval) {
       ctxTv.drawImage(imforimg, 30, 30, 510, 450);
     }
     boomBoomDollarButton.onmouseenter = () => {
       if (audioOff) {
+        document.getElementById("static-sound").pause();
         audioOff = false;
         document.getElementById("boom-boom-dollar").play();
         document.getElementById("boom-boom-dollar").currentTime =
@@ -258,12 +266,14 @@ function loadSongSelectionMenu() {
       audioOff = true;
       document.getElementById("boom-boom-dollar").pause();
       BoomInterval = false;
+      document.getElementById("static-sound").play();
     };
     if (BoomInterval) {
       ctxTv.drawImage(boomimg, 30, 30, 510, 450);
     }
     keepOnMovingButton.onmouseenter = () => {
       if (audioOff) {
+        document.getElementById("static-sound").pause();
         audioOff = false;
         document.getElementById("keep-on-movin").play();
         document.getElementById("keep-on-movin").currentTime =
@@ -275,12 +285,14 @@ function loadSongSelectionMenu() {
       document.getElementById("keep-on-movin").pause();
       audioOff = true;
       keeponmovingInterval = false;
+      document.getElementById("static-sound").play();
     };
     if (keeponmovingInterval) {
       ctxTv.drawImage(letmoveimg, 30, 30, 510, 450);
     }
     tripMachineButton.onmouseenter = () => {
       if (audioOff) {
+        document.getElementById("static-sound").pause();
         audioOff = false;
         document.getElementById("trip-machine").play();
         document.getElementById("trip-machine").currentTime =
@@ -292,6 +304,7 @@ function loadSongSelectionMenu() {
       document.getElementById("trip-machine").pause();
       audioOff = true;
       tripmachineInterval = false;
+      document.getElementById("static-sound").play();
     };
     if (tripmachineInterval) {
       ctxTv.drawImage(tripimg, 30, 30, 510, 450);
