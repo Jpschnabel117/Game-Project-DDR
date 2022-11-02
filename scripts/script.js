@@ -167,7 +167,11 @@ let boomboomdollarsong = {
 };
 let tvInterval = 0;
 let currentAudio;
-
+document.getElementById("return-song-choice").onclick = () => {
+  currentAudio.pause();
+  currentAudio.currentTime = 0;
+  loadSongSelectionMenu();
+};
 let playscreen = document.getElementById("play-screen");
 playscreen.style.display = "none";
 
