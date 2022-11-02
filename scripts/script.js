@@ -166,6 +166,8 @@ let boomboomdollarsong = {
   songLength: 81,
 };
 let tvInterval = 0;
+let currentAudio;
+
 let playscreen = document.getElementById("play-screen");
 playscreen.style.display = "none";
 
@@ -176,6 +178,8 @@ document.getElementById("game-board").style.display = "none";
 document.getElementById("score-screen").style.display = "none";
 
 function loadSongSelectionMenu() {
+  document.getElementById("score-screen").style.display = "none";
+  playscreen.style.display = "none";
   document.querySelector("body").style.backgroundImage =
     "url('/imgs/DDR/retrowave.gif')";
   songSelectionMenu.style.display = "flex";
@@ -264,7 +268,10 @@ function loadSongSelectionMenu() {
 
 function loadPlayScreen(CHOSENSONG) {
   clearInterval(tvInterval);
-  playscreen.style.display = "";
+  playscreen.style.display = "flex";
+  document.getElementById("start-button").style.display = "";
+  document.getElementById("game-board").style.display = "none";
+
   function drawLandingRow(/*tempo*/) {
     ctx.drawImage(landingRowImg, 0, 0, 255, 60, 0, 0, 500, 120);
   }
@@ -565,24 +572,29 @@ function loadPlayScreen(CHOSENSONG) {
           ctx.drawImage(sPlusRank, 125, 50, 250, 150);
           break;
         case MISSES <= 5:
-          ctx.drawImage(sRank, 197, 90, 95, 100);
+          ctx.drawImage(sRank, 150, 50, 150, 150);
           break;
         case MISSES <= 10:
-          ctx.drawImage(aRank, 197, 90, 95, 100);
+          ctx.drawImage(aRank, 150, 50, 150, 150);
           break;
         case MISSES <= 15:
-          ctx.drawImage(bRank, 197, 90, 95, 100);
+          ctx.drawImage(bRank, 150, 50, 150, 150);
           break;
         default:
-          ctx.drawImage(cRank, 197, 90, 95, 100);
+          ctx.drawImage(cRank, 150, 50, 150, 150);
           break;
       }
     } else {
       //ctx.drawImage(sRank, 197, 90, 95, 100);
       ctx.drawImage(failureImg, 10, 50, 477, 151);
     }
-    document.getElementById("game-intro").style.display = "none";
+    //document.getElementById("game-intro").style.display = "none";
     document.getElementById("score-screen").style.display = "flex";
+    document.getElementById("return-song-choice").onclick = () => {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      loadSongSelectionMenu();
+    };
   }
   function startGame(song) {
     /*USEING setTimeout() DELAY THE START OF MUSIC BY AMOUNT === TIME IT TAKES TO SCROLL UP*/
@@ -726,8 +738,8 @@ function loadPlayScreen(CHOSENSONG) {
   document.getElementById("start-button").onclick = () => {
     document.getElementById("start-button").style.display = "none";
     document.getElementById("game-board").style.display = "flex";
-    let audio = document.getElementById(CHOSENSONG.songid);
-    audio.play();
+    currentAudio = document.getElementById(CHOSENSONG.songid);
+    currentAudio.play();
     startGame(currentSong);
   };
 }
