@@ -181,7 +181,7 @@ function loadSongSelectionMenu() {
   document.getElementById("score-screen").style.display = "none";
   playscreen.style.display = "none";
   document.querySelector("body").style.backgroundImage =
-    "url('/imgs/DDR/retrowave.gif')";
+    "url('./imgs/DDR/retrowave.gif')";
   songSelectionMenu.style.display = "flex";
   let tripMachineButton = document.getElementById("Song-sptripmachine");
   let imForRealButton = document.getElementById("Song-imforreal");
