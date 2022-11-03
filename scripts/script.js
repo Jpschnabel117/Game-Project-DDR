@@ -7,11 +7,11 @@ const ctxH = canvasH.getContext("2d");
 const canvasTv = document.getElementById("tv-screen-canvas");
 const ctxTv = canvasTv.getContext("2d");
 
-document.getElementById("im-for-real").volume = 0.1;
-document.getElementById("trip-machine").volume = 0.1;
-document.getElementById("keep-on-movin").volume = 0.1;
-document.getElementById("boom-boom-dollar").volume = 0.1;
-document.getElementById("static-sound").volume = 0.03;
+document.getElementById("im-for-real").volume = 0.2;
+document.getElementById("trip-machine").volume = 0.2;
+document.getElementById("keep-on-movin").volume = 0.2;
+document.getElementById("boom-boom-dollar").volume = 0.2;
+document.getElementById("static-sound").volume = 0.05;
 
 let hitRowImg = new Image();
 hitRowImg.src = "./imgs/DDR/HitArrow.png";
@@ -250,6 +250,25 @@ function loadSongSelectionMenu() {
     };
     if (imforrealInterval) {
       ctxTv.drawImage(imforimg, 30, 30, 510, 450);
+      switch (imforrealsong.highscore) {
+        case 5:
+          ctxTv.drawImage(sPlusRank, 400, 75, 100, 90);
+          break;
+        case 4:
+          ctxTv.drawImage(sRank, 430, 75, 65, 60);
+          break;
+        case 3:
+          ctxTv.drawImage(aRank, 430, 75, 65, 60);
+          break;
+        case 2:
+          ctxTv.drawImage(bRank, 430, 75, 65, 60);
+          break;
+        case 1:
+          ctxTv.drawImage(cRank, 430, 75, 65, 60);
+          break;
+        default:
+          break;
+      }
     }
     boomBoomDollarButton.onmouseenter = () => {
       if (audioOff) {
@@ -269,6 +288,25 @@ function loadSongSelectionMenu() {
     };
     if (BoomInterval) {
       ctxTv.drawImage(boomimg, 30, 30, 510, 450);
+      switch (boomboomdollarsong.highscore) {
+        case 5:
+          ctxTv.drawImage(sPlusRank, 400, 75, 100, 90);
+          break;
+        case 4:
+          ctxTv.drawImage(sRank, 430, 75, 65, 60);
+          break;
+        case 3:
+          ctxTv.drawImage(aRank, 430, 75, 65, 60);
+          break;
+        case 2:
+          ctxTv.drawImage(bRank, 430, 75, 65, 60);
+          break;
+        case 1:
+          ctxTv.drawImage(cRank, 430, 75, 65, 60);
+          break;
+        default:
+          break;
+      }
     }
     keepOnMovingButton.onmouseenter = () => {
       if (audioOff) {
@@ -288,6 +326,25 @@ function loadSongSelectionMenu() {
     };
     if (keeponmovingInterval) {
       ctxTv.drawImage(letmoveimg, 30, 30, 510, 450);
+      switch (keepmovingonsong.highscore) {
+        case 5:
+          ctxTv.drawImage(sPlusRank, 400, 75, 100, 90);
+          break;
+        case 4:
+          ctxTv.drawImage(sRank, 430, 75, 65, 60);
+          break;
+        case 3:
+          ctxTv.drawImage(aRank, 430, 75, 65, 60);
+          break;
+        case 2:
+          ctxTv.drawImage(bRank, 430, 75, 65, 60);
+          break;
+        case 1:
+          ctxTv.drawImage(cRank, 430, 75, 65, 60);
+          break;
+        default:
+          break;
+      }
     }
     tripMachineButton.onmouseenter = () => {
       if (audioOff) {
@@ -307,6 +364,25 @@ function loadSongSelectionMenu() {
     };
     if (tripmachineInterval) {
       ctxTv.drawImage(tripimg, 30, 30, 510, 450);
+      switch (tripmachinesong.highscore) {
+        case 5:
+          ctxTv.drawImage(sPlusRank, 400, 75, 100, 90);
+          break;
+        case 4:
+          ctxTv.drawImage(sRank, 430, 75, 65, 60);
+          break;
+        case 3:
+          ctxTv.drawImage(aRank, 430, 75, 65, 60);
+          break;
+        case 2:
+          ctxTv.drawImage(bRank, 430, 75, 65, 60);
+          break;
+        case 1:
+          ctxTv.drawImage(cRank, 430, 75, 65, 60);
+          break;
+        default:
+          break;
+      }
     }
     ctxTv.drawImage(crtfilterImg, 30, 30, 510, 450);
     ctxTv.drawImage(tvImg, 0, 0, 700, 550);
@@ -620,17 +696,32 @@ function loadPlayScreen(CHOSENSONG) {
       switch (true) {
         case MISSES === 0:
           ctx.drawImage(sPlusRank, 125, 50, 250, 150);
+          if (5 > CHOSENSONG.highscore) {
+            CHOSENSONG.highscore = 5;
+          }
           break;
         case MISSES <= 5:
           ctx.drawImage(sRank, 150, 50, 150, 150);
+          if (4 > CHOSENSONG.highscore) {
+            CHOSENSONG.highscore = 4;
+          }
           break;
         case MISSES <= 10:
+          if (3 > CHOSENSONG.highscore) {
+            CHOSENSONG.highscore = 3;
+          }
           ctx.drawImage(aRank, 150, 50, 150, 150);
           break;
         case MISSES <= 15:
+          if (2 > CHOSENSONG.highscore) {
+            CHOSENSONG.highscore = 2;
+          }
           ctx.drawImage(bRank, 150, 50, 150, 150);
           break;
         default:
+          if (1 > CHOSENSONG.highscore) {
+            CHOSENSONG.highscore = 1;
+          }
           ctx.drawImage(cRank, 150, 50, 150, 150);
           break;
       }
