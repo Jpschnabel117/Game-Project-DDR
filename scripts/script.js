@@ -639,6 +639,9 @@ function loadPlayScreen(CHOSENSONG) {
       ctx.drawImage(failureImg, 10, 50, 477, 151);
     }
     //document.getElementById("game-intro").style.display = "none";
+    if (currentCombo > greatestCombo) {
+      greatestCombo = currentCombo;
+    }
     document.getElementById("score-screen").style.display = "flex";
     document.getElementById("return-song-choice").onclick = () => {
       currentAudio.pause();
