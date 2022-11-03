@@ -7,11 +7,11 @@ const ctxH = canvasH.getContext("2d");
 const canvasTv = document.getElementById("tv-screen-canvas");
 const ctxTv = canvasTv.getContext("2d");
 
-document.getElementById("im-for-real").volume = 0.8;
-document.getElementById("trip-machine").volume = 0.8;
-document.getElementById("keep-on-movin").volume = 1;
-document.getElementById("boom-boom-dollar").volume = 0.8;
-document.getElementById("static-sound").volume = 0.5;
+document.getElementById("im-for-real").volume = 0.1;
+document.getElementById("trip-machine").volume = 0.1;
+document.getElementById("keep-on-movin").volume = 0.1;
+document.getElementById("boom-boom-dollar").volume = 0.1;
+document.getElementById("static-sound").volume = 0.03;
 
 let hitRowImg = new Image();
 hitRowImg.src = "./imgs/DDR/HitArrow.png";
@@ -228,7 +228,6 @@ function loadSongSelectionMenu() {
     loadPlayScreen(boomboomdollarsong);
   };
 
-  let songframecounter = 0;
   let audioOff = true;
   tvInterval = setInterval(() => {
     ctxTv.clearRect(0, 0, 700, 550);
@@ -315,7 +314,9 @@ function loadSongSelectionMenu() {
 }
 
 function loadPlayScreen(CHOSENSONG) {
-  document.getElementById("static-sound").pause();
+  setTimeout(() => {
+    document.getElementById("static-sound").pause();
+  }, 100);
   clearInterval(tvInterval);
   playscreen.style.display = "flex";
   document.getElementById("start-button").style.display = "";
@@ -785,6 +786,7 @@ function loadPlayScreen(CHOSENSONG) {
   }
 
   document.getElementById("start-button").onclick = () => {
+    document.getElementById("static-sound").pause();
     document.getElementById("start-button").style.display = "none";
     document.getElementById("game-board").style.display = "flex";
     currentAudio = document.getElementById(CHOSENSONG.songid);
