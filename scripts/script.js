@@ -255,16 +255,16 @@ function loadSongSelectionMenu() {
           ctxTv.drawImage(sPlusRank, 400, 75, 100, 90);
           break;
         case 4:
-          ctxTv.drawImage(sRank, 430, 75, 65, 60);
+          ctxTv.drawImage(sRank, 410, 80, 75, 70);
           break;
         case 3:
-          ctxTv.drawImage(aRank, 430, 75, 65, 60);
+          ctxTv.drawImage(aRank, 410, 80, 75, 70);
           break;
         case 2:
-          ctxTv.drawImage(bRank, 430, 75, 65, 60);
+          ctxTv.drawImage(bRank, 410, 80, 75, 70);
           break;
         case 1:
-          ctxTv.drawImage(cRank, 430, 75, 65, 60);
+          ctxTv.drawImage(cRank, 410, 80, 75, 70);
           break;
         default:
           break;
@@ -293,16 +293,16 @@ function loadSongSelectionMenu() {
           ctxTv.drawImage(sPlusRank, 400, 75, 100, 90);
           break;
         case 4:
-          ctxTv.drawImage(sRank, 430, 75, 65, 60);
+          ctxTv.drawImage(sRank, 410, 80, 75, 70);
           break;
         case 3:
-          ctxTv.drawImage(aRank, 430, 75, 65, 60);
+          ctxTv.drawImage(aRank, 410, 80, 75, 70);
           break;
         case 2:
-          ctxTv.drawImage(bRank, 430, 75, 65, 60);
+          ctxTv.drawImage(bRank, 410, 80, 75, 70);
           break;
         case 1:
-          ctxTv.drawImage(cRank, 430, 75, 65, 60);
+          ctxTv.drawImage(cRank, 410, 80, 75, 70);
           break;
         default:
           break;
@@ -331,16 +331,16 @@ function loadSongSelectionMenu() {
           ctxTv.drawImage(sPlusRank, 400, 75, 100, 90);
           break;
         case 4:
-          ctxTv.drawImage(sRank, 430, 75, 65, 60);
+          ctxTv.drawImage(sRank, 410, 80, 75, 70);
           break;
         case 3:
-          ctxTv.drawImage(aRank, 430, 75, 65, 60);
+          ctxTv.drawImage(aRank, 410, 80, 75, 70);
           break;
         case 2:
-          ctxTv.drawImage(bRank, 430, 75, 65, 60);
+          ctxTv.drawImage(bRank, 410, 80, 75, 70);
           break;
         case 1:
-          ctxTv.drawImage(cRank, 430, 75, 65, 60);
+          ctxTv.drawImage(cRank, 410, 80, 75, 70);
           break;
         default:
           break;
@@ -369,16 +369,16 @@ function loadSongSelectionMenu() {
           ctxTv.drawImage(sPlusRank, 400, 75, 100, 90);
           break;
         case 4:
-          ctxTv.drawImage(sRank, 430, 75, 65, 60);
+          ctxTv.drawImage(sRank, 410, 80, 75, 70);
           break;
         case 3:
-          ctxTv.drawImage(aRank, 430, 75, 65, 60);
+          ctxTv.drawImage(aRank, 410, 80, 75, 70);
           break;
         case 2:
-          ctxTv.drawImage(bRank, 430, 75, 65, 60);
+          ctxTv.drawImage(bRank, 410, 80, 75, 70);
           break;
         case 1:
-          ctxTv.drawImage(cRank, 430, 75, 65, 60);
+          ctxTv.drawImage(cRank, 410, 80, 75, 70);
           break;
         default:
           break;
@@ -712,7 +712,7 @@ function loadPlayScreen(CHOSENSONG) {
           }
           ctx.drawImage(aRank, 150, 50, 150, 150);
           break;
-        case MISSES <= 15:
+        case MISSES <= 20:
           if (2 > CHOSENSONG.highscore) {
             CHOSENSONG.highscore = 2;
           }
