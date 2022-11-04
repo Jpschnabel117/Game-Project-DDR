@@ -603,7 +603,7 @@ function loadPlayScreen(CHOSENSONG) {
               currentCombo++;
               PHITS++;
               score += 2;
-            } else if (arrows[i].yCord > -79 && arrows[i].yCord < 40) {
+            } else if (arrows[i].yCord > -79 && arrows[i].yCord < 55) {
               // great hit
               arrows.splice(i, 1);
               if (health >= 100) {
@@ -700,19 +700,19 @@ function loadPlayScreen(CHOSENSONG) {
             CHOSENSONG.highscore = 5;
           }
           break;
-        case MISSES <= 5:
+        case MISSES <= 7:
           ctx.drawImage(sRank, 150, 50, 150, 150);
           if (4 > CHOSENSONG.highscore) {
             CHOSENSONG.highscore = 4;
           }
           break;
-        case MISSES <= 10:
+        case MISSES <= 15:
           if (3 > CHOSENSONG.highscore) {
             CHOSENSONG.highscore = 3;
           }
           ctx.drawImage(aRank, 150, 50, 150, 150);
           break;
-        case MISSES <= 20:
+        case MISSES <= 25:
           if (2 > CHOSENSONG.highscore) {
             CHOSENSONG.highscore = 2;
           }
